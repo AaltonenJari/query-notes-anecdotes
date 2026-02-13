@@ -1,23 +1,37 @@
-import { useDispatch, useSelector } from 'react-redux'
+import AnecdoteForm from './components/AnecdoteForm'
+import Notification from './components/Notification'
 
-function App() {
-  const counter = useSelector(state => state)
-  const dispatch = useDispatch()
+const App = () => {
+  const handleVote = (anecdote) => {
+    console.log('vote', anecdote.id)
+  }
+
+  const anecdotes = [
+    {
+      content: 'If it hurts, do it more often',
+      id: '47145',
+      votes: 0,
+    },
+  ]
 
   return (
-   <div>
-      <div>{counter}</div>
-      <button onClick={() => dispatch({ type: 'INCREMENT' })}>
-        plus
-      </button>
-      <button onClick={() => dispatch({ type: 'DECREMENT' })}>
-        minus
-      </button>
-      <button onClick={() => dispatch({ type: 'ZERO' })}>
-        zero
-      </button>
-    </div>  
-  );
+    <div>
+      <h3>Anecdote app</h3>
+
+      <Notification />
+      <AnecdoteForm />
+
+      {anecdotes.map((anecdote) => (
+        <div key={anecdote.id}>
+          <div>{anecdote.content}</div>
+          <div>
+            has {anecdote.votes}
+            <button onClick={() => handleVote(anecdote)}>vote</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default App
