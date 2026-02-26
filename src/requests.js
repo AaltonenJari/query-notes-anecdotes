@@ -16,6 +16,9 @@ export const createAnecdote = async (newAnecdote) => {
     },
     body: JSON.stringify({ ...newAnecdote, votes: 0 })
   }
+  if (newAnecdote.content.length < 5) {
+    throw new Error('Anecdote must be at least 5 characters long')
+  }
   const response = await fetch(baseUrl, options)
   if (!response.ok) {
     throw new Error('Failed to create anecdote')
